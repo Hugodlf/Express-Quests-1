@@ -24,11 +24,13 @@ app.put("/api/movies/:id",validateMovie, movieHandlers.updateMovie)
 app.delete("/api/movies/:id",movieHandlers.deleteMovie)
 
 const useHandlers = require("./useHandlers");
+const {hashPassword}  = require("./auth.js");
+
 
 app.get("/api/users", useHandlers.getUsers);
 app.get("/api/users/:id", useHandlers.getUserById);
-app.post("/api/users",validateUser, useHandlers.postUser);
-app.put("/api/users/:id",validateUser, useHandlers.updateUser);
+app.post("/api/users",hashPassword, validateUser, useHandlers.postUser);
+app.put("/api/users/:id",hashPassword, validateUser, useHandlers.updateUser);
 app.delete("/api/users/:id", useHandlers.deleteUser)
 
 app.listen(port, (err) => {
